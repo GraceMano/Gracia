@@ -9,6 +9,7 @@ import {
   SeverityClass,
 } from "@/types/erosion";
 import { geoService } from "@/services/geoService";
+import { discussionService } from "@/services/discussionService";
 import { Header } from "@/components/common/Header";
 import { Sidebar } from "@/components/sidebar/Sidebar";
 import { MapContainer } from "@/components/map/MapContainer";
@@ -47,6 +48,10 @@ export default function Home() {
       if (savedCarto) {
         setCartoApiKey(savedCarto);
       }
+
+      discussionService.syncWithServer().then(() => {
+        setObservationVersion((v) => v + 1);
+      });
     }
   }, []);
 

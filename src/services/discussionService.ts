@@ -36,29 +36,71 @@ const DEFAULT_SEED_OBSERVATIONS: ZoneObservation[] = [
 ];
 
 export class DiscussionService {
+  private inMemoryCache: ZoneObservation[] | null = null;
+
   private getStoredObservations(): ZoneObservation[] {
+    if (this.inMemoryCache) {
+      return this.inMemoryCache;
+    }
+
     if (typeof window === "undefined") {
       return DEFAULT_SEED_OBSERVATIONS;
     }
+
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (!raw) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_SEED_OBSERVATIONS));
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(DEFAULT_SEED_OBSERVATIONS)
+        );
+        this.inMemoryCache = DEFAULT_SEED_OBSERVATIONS;
         return DEFAULT_SEED_OBSERVATIONS;
       }
-      return JSON.parse(raw) as ZoneObservation[];
+      const parsed = JSON.parse(raw) as ZoneObservation[];
+      this.inMemoryCache = parsed;
+      return parsed;
     } catch (e) {
       return DEFAULT_SEED_OBSERVATIONS;
     }
   }
 
   private saveObservations(obs: ZoneObservation[]): void {
+    this.inMemoryCache = obs;
     if (typeof window === "undefined") return;
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(obs));
     } catch (e) {
       console.error("Failed to save observations to localStorage:", e);
     }
+  }
+
+  async syncWithServer(): Promise<ZoneObservation[]> {
+    if (typeof window === "undefined") {
+      return this.getStoredObservations();
+    }
+
+    try {
+      const res = await fetch("/api/discussions", { method: "GET" });
+      if (res.ok) {
+        const remoteData = (await res.json()) as ZoneObservation[];
+        if (Array.isArray(remoteData) && remoteData.length > 0) {
+          // Merge local and remote
+          const localMap = new Map<string, ZoneObservation>();
+          this.getStoredObservations().forEach((o) => localMap.set(o.id, o));
+          remoteData.forEach((o) => localMap.set(o.id, o));
+          const merged = Array.from(localMap.values()).sort(
+            (a, b) =>
+              new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+          );
+          this.saveObservations(merged);
+          return merged;
+        }
+      }
+    } catch (err) {
+      // Offline fallback: keep localStorage data
+    }
+    return this.getStoredObservations();
   }
 
   getAllObservations(): ZoneObservation[] {
@@ -84,7 +126,7 @@ export class DiscussionService {
     const newEntry: ZoneObservation = {
       id: `obs-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
       zoneId,
-      authorName: authorName.trim() || "Observateur Anonyme",
+      authorName: authorName.trim() || "Observateur de terrain",
       authorRole,
       findingType,
       comment: comment.trim(),
@@ -94,6 +136,18 @@ export class DiscussionService {
     const current = this.getStoredObservations();
     const updated = [newEntry, ...current];
     this.saveObservations(updated);
+
+    // Asynchronously publish to backend API
+    if (typeof window !== "undefined") {
+      fetch("/api/discussions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newEntry),
+      }).catch((e) => {
+        console.warn("Failed to sync observation to server:", e);
+      });
+    }
+
     return newEntry;
   }
 }
