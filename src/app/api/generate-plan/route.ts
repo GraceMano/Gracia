@@ -25,7 +25,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const apiKey = (process.env.GEMINI_API_KEY || "").trim();
+    const apiKey = (process.env.GEMINI_API_KEY || "")
+      .trim()
+      .replace(/^['"]|['"]$/g, "");
 
     // If no API key configured, use deterministic offline engine
     if (!apiKey) {
@@ -110,30 +112,47 @@ CONSIGNES IMPORTANTES :
 }
 `;
 
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    const candidateModels = [
+      "gemini-3.6-flash",
+      "gemini-2.5-flash",
+      "gemini-flash-latest",
+      "gemini-1.5-flash",
+    ];
 
-    const geminiResponse = await fetch(geminiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [{ text: promptText }],
-          },
-        ],
-        generationConfig: {
-          temperature: 0.3,
-          responseMimeType: "application/json",
-        },
-      }),
-    });
+    let geminiData: any = null;
+    let modelSuccessName = "";
+    let lastErrorMsg = "";
 
-    if (!geminiResponse.ok) {
-      const errText = await geminiResponse.text();
-      console.error("Gemini API error:", errText);
-      // Graceful fallback to deterministic engine on API error
+    for (const model of candidateModels) {
+      try {
+        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        const resp = await fetch(geminiUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: promptText }] }],
+            generationConfig: {
+              temperature: 0.2,
+              responseMimeType: "application/json",
+            },
+          }),
+        });
+
+        if (resp.ok) {
+          geminiData = await resp.json();
+          modelSuccessName = model;
+          break;
+        } else {
+          lastErrorMsg = await resp.text();
+          console.warn(`Model ${model} failed:`, lastErrorMsg);
+        }
+      } catch (err: any) {
+        lastErrorMsg = err?.message || String(err);
+      }
+    }
+
+    if (!geminiData || !modelSuccessName) {
+      console.error("All Gemini models failed. Last error:", lastErrorMsg);
       const offlinePlan = await recommendationEngine.generateAiActionPlan(
         properties,
         locale
@@ -148,7 +167,6 @@ CONSIGNES IMPORTANTES :
       });
     }
 
-    const geminiData = await geminiResponse.json();
     const rawText =
       geminiData.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
 
@@ -164,7 +182,7 @@ CONSIGNES IMPORTANTES :
 
     return NextResponse.json({
       ...parsedResult,
-      modelUsed: "Google Gemini 1.5 Flash",
+      modelUsed: `Google Gemini (${modelSuccessName})`,
       generatedAt: new Date().toISOString(),
     });
   } catch (error) {

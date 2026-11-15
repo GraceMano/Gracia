@@ -37,7 +37,13 @@ const MEMORY_OBSERVATIONS: ZoneObservation[] = [
 ];
 
 async function getNeonClient() {
-  const dbUrl = (process.env.DATABASE_URL || "").trim();
+  const dbUrl = (
+    process.env.DATABASE_URL ||
+    process.env.POSTGRES_URL ||
+    process.env.POSTGRES_PRISMA_URL ||
+    process.env.POSTGRES_URL_NON_POOLING ||
+    ""
+  ).trim();
   if (!dbUrl) return null;
   return neon(dbUrl);
 }
@@ -64,6 +70,18 @@ export async function GET(req: NextRequest) {
           timestamp TIMESTAMPTZ NOT NULL DEFAULT NOW()
         );
       `;
+
+      // Auto-seed default observations if table is currently empty
+      const countRes = await sql`SELECT count(*)::int as count FROM zone_observations`;
+      if (countRes[0]?.count === 0) {
+        for (const seed of MEMORY_OBSERVATIONS) {
+          await sql`
+            INSERT INTO zone_observations (id, zone_id, author_name, author_role, finding_type, comment, timestamp)
+            VALUES (${seed.id}, ${seed.zoneId}, ${seed.authorName}, ${seed.authorRole}, ${seed.findingType}, ${seed.comment}, ${seed.timestamp})
+            ON CONFLICT (id) DO NOTHING;
+          `;
+        }
+      }
 
       let rows;
       if (zoneId !== null && !isNaN(zoneId)) {
