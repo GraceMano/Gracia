@@ -3,9 +3,9 @@ import "./globals.css";
 import { LocaleProvider } from "@/contexts/LocaleContext";
 
 export const metadata: Metadata = {
-  title: "Observatoire de l'Erosion des Sols - Kabare",
+  title: "Agrsmart - Observatoire de l'Érosion des Sols (Kabare)",
   description:
-    "Plateforme de cartographie des pertes en terres et aide à la décision agro-environnementale pour le territoire de Kabare (Sud-Kivu, RDC).",
+    "Agrsmart : Plateforme de cartographie des pertes en terres et aide à la décision agro-environnementale pour le territoire de Kabare (Sud-Kivu, RDC).",
 };
 
 export default function RootLayout({

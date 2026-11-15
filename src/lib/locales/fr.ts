@@ -1,5 +1,6 @@
 export const fr = {
   app: {
+    brandName: "Agrsmart",
     title: "Observatoire de l'Érosion des Sols",
     territory: "Territoire de Kabare",
     subtitle: "Évaluation des pertes en terres et aide à la décision agro-environnementale",

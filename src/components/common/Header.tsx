@@ -60,12 +60,17 @@ export function Header({
 
           <div className="truncate">
             <div className="flex items-center gap-2">
-              <h1 className="text-sm sm:text-base font-bold tracking-tight text-slate-100 truncate">
+              <span className="font-extrabold text-base tracking-tight text-white flex items-center">
+                <span className="text-emerald-400">Agr</span>smart
+              </span>
+              <span className="text-slate-600 hidden sm:inline">&bull;</span>
+              <h1 className="text-xs sm:text-sm font-semibold text-slate-300 truncate hidden sm:inline">
                 {t("app.title")}
               </h1>
-              
             </div>
-            
+            <p className="text-[11px] text-slate-400 truncate hidden md:block">
+              {t("app.subtitle")} &bull; {t("app.territory")}
+            </p>
           </div>
         </div>
       </div>

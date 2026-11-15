@@ -2,6 +2,7 @@ import { LocaleDict } from "./fr";
 
 export const en: LocaleDict = {
   app: {
+    brandName: "Agrsmart",
     title: "Soil Erosion Observatory",
     territory: "Kabare Territory",
     subtitle: "Soil loss assessment and agro-environmental decision support system",
