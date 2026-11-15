@@ -11,7 +11,7 @@ import { useLocale } from "@/contexts/LocaleContext";
 import { GlobalStats } from "./GlobalStats";
 import { ZoneDetail } from "./ZoneDetail";
 import { FilterPanel } from "./FilterPanel";
-import { BarChart3, Info, SlidersHorizontal, ChevronLeft } from "lucide-react";
+import { BarChart3, Info, SlidersHorizontal, ChevronLeft, ExternalLink } from "lucide-react";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -143,6 +143,27 @@ export function Sidebar({
           />
         )}
       </div>
+
+      {/* Sidebar Footer */}
+      <footer className="p-3 border-t border-slate-800 bg-slate-900/90 text-[11px] text-slate-400 flex items-center justify-between shrink-0">
+        <div className="flex flex-col">
+          <span className="font-semibold text-slate-300">
+            {t("sidebar.builtBy")}
+          </span>
+          {/* <a
+            href="https://macpierre.web.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-emerald-400 hover:text-emerald-300 hover:underline flex items-center gap-1 transition-colors mt-0.5"
+          >
+            <span>{t("sidebar.portfolioLink")}</span>
+            <ExternalLink className="w-3 h-3" />
+          </a> */}
+        </div>
+        <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">
+          v1.0 Bukavu
+        </span>
+      </footer>
     </aside>
   );
 }

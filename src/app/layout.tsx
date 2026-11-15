@@ -6,6 +6,11 @@ export const metadata: Metadata = {
   title: "Agrsmart - Observatoire de l'Érosion des Sols (Kabare)",
   description:
     "Agrsmart : Plateforme de cartographie des pertes en terres et aide à la décision agro-environnementale pour le territoire de Kabare (Sud-Kivu, RDC).",
+  icons: {
+    icon: "/logo-icon.svg",
+    shortcut: "/logo-icon.svg",
+    apple: "/logo-icon.svg",
+  },
 };
 
 export default function RootLayout({

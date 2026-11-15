@@ -97,6 +97,7 @@ export const fr = {
     generateAiPlan: "Générer la Fiche Technique",
     generatingAiPlan: "Élaboration du protocole en cours...",
     aiPlanResultTitle: "Fiche Technique d'Intervention - Kabare",
+    downloadPdf: "Télécharger en PDF",
     mulching: {
       title: "Paillage et Couverture Végétale Permanente",
       desc: "Application de résidus de récolte pour atténuer l'impact des gouttes de pluie (effet splash) et stimuler la matière organique.",
@@ -208,6 +209,11 @@ export const fr = {
     step3: "3. Sous la section 'API Keys', copiez la 'Default Public Key' ou générez une nouvelle clé avec accès 'Maps API'.",
     step4: "4. Collez la clé ci-dessus puis cliquez sur 'Enregistrer la clé'.",
     closeModal: "Fermer",
+  },
+  sidebar: {
+    builtBy: "Ce site a été conçu par Agrsmart",
+    portfolioLink: "Portfolio de Grace Mano",
+    authorName: "Grace Mano",
   },
 };
 

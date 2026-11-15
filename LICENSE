@@ -1,0 +1,44 @@
+PROPRIETARY SOURCE-AVAILABLE EVALUATION & COMPETITION LICENSE
+
+Project: Agrsmart - Soil Erosion Observatory & Agro-Environmental Decision Support System (Kabare, DRC)
+Copyright (c) 2026 Agrsmart Initiative / Grace Mano. All Rights Reserved.
+
+NOTICE TO ALL USERS, EVALUATORS, AND COMPETITION JURY MEMBERS:
+
+This software, source code, data architectures, geospatial processing workflows, artificial intelligence prompt designs, and associated documentation are the exclusive intellectual property of Agrsmart and its author, Grace Mano.
+
+This repository and its contents are made accessible strictly for consultation, demonstration, peer review, and academic evaluation within the context of the official competition.
+
+================================================================================
+1. PERMITTED USES (CONSULTATION & EVALUATION ONLY)
+================================================================================
+You are granted a limited, revocable, non-exclusive, non-transferable permission to:
+- Read, inspect, and analyze the source code and documentation solely for the purpose of assessing the project, its technical merits, and evaluating its competition submission.
+- Execute and run the application locally or view its deployed instance solely for the direct purpose of judging, grading, or verifying its functionality.
+
+================================================================================
+2. STRICT PROHIBITIONS (NO REPLICATION, NO FORKING, NO REDISTRIBUTION)
+================================================================================
+Without prior express written authorization from the copyright holder (Grace Mano / Agrsmart), you are STRICTLY PROHIBITED from:
+- Duplicating, copying, cloning for independent deployment, mirroring, or republishing this repository or any portion thereof.
+- Creating public forks, distributing, sublicensing, renting, leasing, or selling this software or any derivative works based upon it.
+- Using any part of the codebase, styling, geospatial workflows, machine learning integrations, or database schemas for any commercial, non-commercial, educational, or competing project.
+- Modifying, removing, or obscuring any copyright notices, watermarks, author attributions, or licensing terms embedded within the repository or in generated reports and artifacts.
+
+================================================================================
+3. INTELLECTUAL PROPERTY OWNERSHIP
+================================================================================
+All title, ownership, patents, trademarks, copyrights, and trade secrets in and to Agrsmart (including all code, graphic assets, data transformations, and architectural designs) remain exclusively the intellectual property of Grace Mano and the Agrsmart team. Making this repository visible does not constitute an open-source grant or waiver of any intellectual property rights.
+
+================================================================================
+4. DISCLAIMER OF WARRANTY
+================================================================================
+THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM OR IN CONNECTION WITH THE SOFTWARE OR ITS USE.
+
+================================================================================
+5. CONTACT & OFFICIAL ATTRIBUTION
+================================================================================
+For official authorizations, inquiries, or licensing requests, please contact:
+- Project: Agrsmart
+- Author: Grace Mano
+- Portfolio: https://macpierre.web.app/

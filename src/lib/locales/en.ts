@@ -99,6 +99,7 @@ export const en: LocaleDict = {
     generateAiPlan: "Generate Technical Action Plan",
     generatingAiPlan: "Drafting technical brief...",
     aiPlanResultTitle: "Technical Implementation Brief - Kabare",
+    downloadPdf: "Download PDF Report",
     mulching: {
       title: "Mulching and Continuous Soil Cover",
       desc: "Applying crop residues to minimize raindrop impact (splash effect) and stimulate soil biological activity.",
@@ -210,5 +211,10 @@ export const en: LocaleDict = {
     step3: "3. Under 'API Keys', copy the 'Default Public Key' or create a new key with Maps API permissions.",
     step4: "4. Paste the key above and click 'Save Key'.",
     closeModal: "Close",
+  },
+  sidebar: {
+    builtBy: "This website was built by Agrsmart",
+    portfolioLink: "Grace Mano's Portfolio",
+    authorName: "Grace Mano",
   },
 };

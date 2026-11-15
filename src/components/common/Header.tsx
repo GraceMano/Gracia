@@ -3,6 +3,7 @@
 import React from "react";
 import { useLocale } from "@/contexts/LocaleContext";
 import { SupportedLocale } from "@/lib/locales";
+import { Logo } from "./Logo";
 import {
   Compass,
   Globe,
@@ -54,9 +55,7 @@ export function Header({
         </button>
 
         <div className="flex items-center space-x-3 min-w-0">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/10 border border-emerald-500/40 flex items-center justify-center shrink-0 shadow-inner">
-            <Compass className="w-5 h-5 text-emerald-400" />
-          </div>
+          <Logo size={36} />
 
           <div className="truncate">
             <div className="flex items-center gap-2">

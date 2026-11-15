@@ -99,6 +99,7 @@ export const es: LocaleDict = {
     generateAiPlan: "Generar Ficha Técnica",
     generatingAiPlan: "Redactando ficha técnica...",
     aiPlanResultTitle: "Ficha Técnica de Intervención - Kabare",
+    downloadPdf: "Descargar en PDF",
     mulching: {
       title: "Acolchado (Mulching) y Cobertura Vegetal Permanente",
       desc: "Aplicación de rastrojos de cosecha para reducir el impacto de las gotas de lluvia (efecto salpicadura) y enriquecer la materia orgánica.",
@@ -210,5 +211,10 @@ export const es: LocaleDict = {
     step3: "3. En 'API Keys', copie la 'Default Public Key' o genere una nueva con acceso 'Maps API'.",
     step4: "4. Pegue la clave arriba y haga clic en 'Guardar Clave'.",
     closeModal: "Cerrar",
+  },
+  sidebar: {
+    builtBy: "Este sitio web fue desarrollado por Agrsmart",
+    portfolioLink: "Portafolio de Grace Mano",
+    authorName: "Grace Mano",
   },
 };

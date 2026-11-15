@@ -23,7 +23,9 @@ import {
   Check,
   HelpCircle,
   Cpu,
+  Download,
 } from "lucide-react";
+import { exportFicheTechniquePdf } from "@/lib/pdfExport";
 
 interface ZoneDetailProps {
   properties: ErosionFeatureProperties | null;
@@ -308,12 +310,22 @@ export function ZoneDetail({
                 <CheckCircle2 className="w-4 h-4" />
                 <span>{t("recommendations.aiPlanResultTitle")}</span>
               </div>
-              {aiPlan.modelUsed && (
-                <div className="flex items-center gap-1 text-[11px] font-mono bg-slate-800 px-2 py-0.5 rounded border border-slate-700 text-slate-300">
-                  <Cpu className="w-3 h-3 text-emerald-400" />
-                  <span>{aiPlan.modelUsed}</span>
-                </div>
-              )}
+              <div className="flex items-center gap-2">
+                {aiPlan.modelUsed && (
+                  <div className="flex items-center gap-1 text-[11px] font-mono bg-slate-800 px-2 py-0.5 rounded border border-slate-700 text-slate-300">
+                    <Cpu className="w-3 h-3 text-emerald-400" />
+                    <span>{aiPlan.modelUsed}</span>
+                  </div>
+                )}
+                <button
+                  onClick={() => exportFicheTechniquePdf(aiPlan, properties, locale)}
+                  title={t("recommendations.downloadPdf")}
+                  className="flex items-center gap-1 px-2.5 py-1 bg-emerald-600/90 hover:bg-emerald-500 text-white text-xs font-semibold rounded-md transition-colors shadow-sm"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>PDF</span>
+                </button>
+              </div>
             </div>
 
             <p className="text-slate-200 leading-relaxed text-[13px] italic bg-slate-950/40 p-2.5 rounded-lg border border-slate-800">
@@ -364,6 +376,14 @@ export function ZoneDetail({
             <p className="text-[13px] text-slate-400 bg-slate-950/60 p-2.5 rounded-lg border border-slate-800 leading-relaxed">
               {aiPlan.maintenanceGuidelines}
             </p>
+
+            <button
+              onClick={() => exportFicheTechniquePdf(aiPlan, properties, locale)}
+              className="w-full py-2.5 px-3 bg-emerald-600/90 hover:bg-emerald-500 text-white text-[13px] font-semibold rounded-lg transition-colors flex items-center justify-center space-x-2 border border-emerald-500/30 shadow-sm"
+            >
+              <Download className="w-4 h-4" />
+              <span>{t("recommendations.downloadPdf")}</span>
+            </button>
           </div>
         )}
       </div>
